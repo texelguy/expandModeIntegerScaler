@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ck0so34fvopor"]
+
+[ext_resource type="Script" uid="uid://duv1ysquf6cte" path="res://addons/expand_integer_scaling/integer_scaler.gd" id="1_s8xel"]
+
+[node name="IntegerScaler" type="Node" unique_id=2099471146]
+script = ExtResource("1_s8xel")
