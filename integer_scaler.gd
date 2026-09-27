@@ -1,10 +1,15 @@
 extends Node
 
 
-const BASE_WIDTH: int = 180
-const BASE_HEIGHT: int = 320
+var BASE_WIDTH: int = 180
+var BASE_HEIGHT: int = 320
 
 func _ready() -> void:
+	var base_resolution: Vector2 = ProjectSettings.get_setting("IntegerScaler/settings/base_resolution")
+	BASE_WIDTH = base_resolution.x
+	BASE_HEIGHT = base_resolution.y
+	ProjectSettings.settings_changed.connect(_on_settings_changed)
+	
 	get_tree().root.size_changed.connect(_on_window_resized)
 	_on_window_resized()
 
@@ -19,4 +24,8 @@ func _on_window_resized() -> void:
 	var target_height: int = window_size.y / scale_factor
 	
 	get_viewport().content_scale_size = Vector2i(target_width, target_height)
-	
+
+func _on_settings_changed() -> void:
+	var base_resolution: Vector2 = ProjectSettings.get_setting("IntegerScaler/settings/base_resolution")
+	BASE_WIDTH = base_resolution.x
+	BASE_HEIGHT = base_resolution.y

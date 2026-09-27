@@ -2,26 +2,27 @@
 extends EditorPlugin
 
 const AUTOLOAD := "IntegerScaler"
-
-func _enable_plugin() -> void:
-	# Add autoloads here.
-	#add_custom_type("IntegerScaler", "Node", preload("res://addons/expand_integer_scaling/integer_scaler.gd"), preload("icon.png"))
-	add_autoload_singleton(AUTOLOAD, "res://addons/expand_integer_scaling/integer_scaler.tscn")
-	pass
-
-
-func _disable_plugin() -> void:
-	# Remove autoloads here.
-	#remove_custom_type("IntegerScaler")
-	remove_autoload_singleton(AUTOLOAD)
-	pass
-
+const SETTING_PATH := "IntegerScaler/settings/base_resolution"
+const DEFAULT_VALUE := Vector2(320, 180)
 
 func _enter_tree() -> void:
-	# Initialization of the plugin goes here.
-	pass
-
+	# Add autoloads here.
+	add_autoload_singleton(AUTOLOAD, "res://addons/expand_integer_scaling/integer_scaler.tscn")
+	if not ProjectSettings.has_setting(SETTING_PATH):
+		ProjectSettings.set_setting(SETTING_PATH, DEFAULT_VALUE)
+	
+	var property_info = {
+		"name": SETTING_PATH,
+		"type": TYPE_VECTOR2I,
+	}
+	
+	ProjectSettings.add_property_info(property_info)
+	
+	ProjectSettings.set_initial_value(SETTING_PATH, DEFAULT_VALUE)
+	ProjectSettings.save()
+	
 
 func _exit_tree() -> void:
-	# Clean-up of the plugin goes here.
+	# Remove autoloads here.
+	remove_autoload_singleton(AUTOLOAD)
 	pass
