@@ -1,4 +1,4 @@
-<img src="icon-export.png" align="center">
+<img src="icon.png" align="center">
 
 
 # Expand Mode Integer Scaler 
